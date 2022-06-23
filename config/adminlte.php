@@ -253,6 +253,11 @@ return [
             'label'       => 4,
             'label_color' => 'success',
         ],
+        [
+            'text'        => 'Integrações',
+            'url'         => 'integracoes',
+            'icon'        => 'far fa-fw fa-file',
+        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',
