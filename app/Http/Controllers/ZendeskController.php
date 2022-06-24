@@ -35,7 +35,23 @@ class ZendeskController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_email = $request->user_email;
+        $password = base64_encode($request->password);
+
+        if(strpos($request->domain, "https://") !== false){
+            $removeHttps = explode('https://', $request->domain);
+            $domain = explode('.zendesk.com', $removeHttps[1]);
+        } else {
+            $domain = explode('.zendesk.com', $request->domain);
+        }
+
+        $data = array(
+            'user_email' => $user_email,
+            'password' => $password,
+            'domain' => $domain[0]
+        );
+
+        dd($data);
     }
 
     /**

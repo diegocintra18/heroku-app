@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\IntegrationsController;
+use App\Http\Controllers\ZendeskController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,10 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/integracoes', [IntegrationsController::class, 'index'])->name('integrations.index')->middleware(['auth']);
+
+Route::middleware(['auth'])->group(function () {
+    Route::post('/salvar-zendesk', [ZendeskController::class, 'store'])->name('zendesk.store');
+});
 
 require __DIR__.'/auth.php';
 

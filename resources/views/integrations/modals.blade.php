@@ -9,7 +9,8 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form>
+                <form action="{{ route('zendesk.store') }}" method="post">
+                    @csrf
                     <div class="form-group">
                         <label for="exampleInputEmail1">Email de acesso ao Zendesk</label>
                         <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="user_email" placeholder="name@example.com">
@@ -22,7 +23,7 @@
                         <label for="exampleInputPassword1">Sub-domínio da conta ex: empresa.zendesk.com</label>
                         <input type="text" class="form-control" id="exampleInputPassword1" name="domain" placeholder="empresa.zendesk.com">
                     </div>
-                    <button type="button" class="btn btn-success">Salvar</button>
+                    <button type="submit" class="btn btn-success">Salvar</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                 </form>
             </div>
