@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('settings', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('cnpj');
+            $table->string('config_name');
+            $table->string('config_value');
+            $table->integer('status');
+            $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
         });
     }
@@ -28,6 +30,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::table('settings', function (Blueprint $table) {
+            $table->foreignId('client_id')
+            ->onDelete('cascade');
+        });
+
+        Schema::dropIfExists('settings');
     }
 };

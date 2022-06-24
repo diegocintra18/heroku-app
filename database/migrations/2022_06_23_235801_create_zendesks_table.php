@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
+        Schema::create('zendesk', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('cnpj');
+            $table->string('domain');
+            $table->string('user_email');
+            $table->string('password');
+            $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
         });
     }
@@ -28,6 +30,11 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::table('zendesk', function (Blueprint $table) {
+            $table->foreignId('client_id')
+            ->onDelete('cascade');
+        });
+
+        Schema::dropIfExists('zendesk');
     }
 };
