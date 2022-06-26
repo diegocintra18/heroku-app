@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Zendesk extends Model
 {
     use HasFactory;
+
+    protected $table = 'zendesk';
+
+    protected $fillable = [
+        'domain',
+        'user_email',
+        'password',
+        'client_id',
+    ];
 }
