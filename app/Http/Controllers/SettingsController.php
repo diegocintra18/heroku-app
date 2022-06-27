@@ -35,7 +35,12 @@ class SettingsController extends Controller
      */
     public function store($data)
     {
-        dd($data);
+        Settings::updateOrCreate([
+            'config_name' => $data['config_name'],
+            'config_value' => $data['config_value'],
+            'status' => $data['status'],
+            'client_id' => $data['client_id']
+        ]);
     }
 
     /**
