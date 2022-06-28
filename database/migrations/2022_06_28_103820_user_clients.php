@@ -14,11 +14,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('client_id')->constrained('clients')->default(1);
+        Schema::create('userClients', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('client_id')->constrained('clients');
+            $table->timestamps();
         });
 
-        DB::table('users')->where('id', '=', '1')->update([
+        DB::table('userClients')->insert([
+            'user_id' => 1,
             'client_id' => 1
         ]);
     }
@@ -30,7 +34,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('userClients', function (Blueprint $table) {
+            $table->foreignId('user_id')
+            ->onDelete('cascade');
+        });
+
+        Schema::table('userClients', function (Blueprint $table) {
             $table->foreignId('client_id')
             ->onDelete('cascade');
         });

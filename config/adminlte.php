@@ -258,15 +258,15 @@ return [
             'url'         => 'integracoes',
             'icon'        => 'far fa-fw fa-file',
         ],
-        ['header' => 'account_settings'],
+        ['header' => 'MONITOR'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Configurar',
+            'url'  => 'configurar-monitor',
             'icon' => 'fas fa-fw fa-user',
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
+            'text' => 'Visualizar',
+            'url'  => 'monitor',
             'icon' => 'fas fa-fw fa-lock',
         ],
         [
