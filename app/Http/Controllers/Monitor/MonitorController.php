@@ -21,6 +21,10 @@ class MonitorController extends Controller
         return view('monitor.settings');
     }
 
+    public function zendeskViewsRules(){
+        return view('monitor.zendeskViews');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
