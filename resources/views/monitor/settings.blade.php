@@ -31,7 +31,9 @@
                     <p>As regras de métricas existentes permitem criar fórmulas personalizadas com métricas de visualizações já importadas.</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">Regra de visualizações</button>
+                    <a href="{{route('monitor.visualizationRules')}}">
+                        <button type="button" class="btn btn-primary">Regra de visualizações</button>
+                    </a>
                     <button type="button" class="btn btn-primary">Regra de métricas existentes</button>
                 </div>
             </div>

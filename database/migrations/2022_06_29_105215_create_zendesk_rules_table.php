@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('zendesk_visualization_name');
             $table->integer('rule_type');
             $table->string('zendesk_formula')->default(null);
+            $table->integer('green_range')->default(0);
+            $table->integer('yellow_range')->default(0);
             $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
         });

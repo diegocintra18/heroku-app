@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/configurar-monitor', [MonitorController::class, 'monitorSettings'])->name('monitor.settings');
+    Route::get('/configurar-monitor/regras-de-visualizacoes', [MonitorController::class, 'zendeskVisualizationRules'])->name('monitor.visualizationRules');
 });
 
 
