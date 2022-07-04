@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Monitor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Zendesk\ZendeskRules;
 use Illuminate\Http\Request;
 
 class MonitorController extends Controller
@@ -27,6 +28,20 @@ class MonitorController extends Controller
 
     public function zendeskVisualizationRules(){
         return view('monitor.visualizationsZendesk');
+    }
+
+    public function storeZendeskVisualization(Request $request){
+        $data = $request->all();
+
+        if($data['green_range'] > $data['yellow_range']){
+            return redirect()->back()->with('error', "O valor máximo da cor verde não pode ser maior que o amarelo");
+        }
+
+        $data['red_range'] = $data["yellow_range"] + 1;
+
+        ZendeskRules::create($data);
+
+        return redirect()->route('monitor.visualizationRules')->with('message', 'Visualização salva com sucesso!');
     }
 
     /**

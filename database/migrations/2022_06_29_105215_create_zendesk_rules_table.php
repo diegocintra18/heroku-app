@@ -17,10 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('zendesk_visualization_id');
             $table->string('zendesk_visualization_name');
-            $table->integer('rule_type');
+            $table->integer('rule_type')->default(1);
             $table->string('zendesk_formula')->default(null);
             $table->integer('green_range')->default(0);
             $table->integer('yellow_range')->default(0);
+            $table->integer('order')->default(0);
             $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
         });

@@ -12,20 +12,21 @@
 
 @section('content')
     <div class="container-fluid">
-        <form action="">
+        <form action="{{ route('monitor.storeZendeskVisualization') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <div class="form-group">
                 <label for="">Nome da métrica</label>
                 <input type="text" class="form-control" name="zendesk_visualization_name">
             </div>
             <div class="form-group">
                 <label for="">Id da visualização do Zendesk
-                    <a class="btn btn-primary btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                    <a class="btn btn-info btn-sm" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                         Como encontrar o id?
                     </a>
                 </label>
                 <div class="collapse" id="collapseExample">
-                    <div class="card card-body">
-                        Some placeholder content for the collapse component. This panel is hidden by default but revealed when the user activates the relevant trigger.
+                    <div class="card card-body bg-info">
+                        Acesse sua central de administração do zendesk, clique em editar na visualização desejada, e copie o id da visualização na url do navegador.
                     </div>
                 </div>
                 <input type="text" class="form-control" name="zendesk_visualization_id">
@@ -39,6 +40,10 @@
             <div class="form-group">
                 <label for="">Valor máximo para a cor amarela</label>
                 <input type="number" class="form-control" name="yellow_range" id="">
+            </div>
+            <div class="form-group">
+                <label for="">Ordem de exibição</label>
+                <input type="number" class="form-control" name="order" id="">
             </div>
             <input type="hidden" name="client_id" value="1">
             <button type="submit" class="btn btn-success">Salvar</button>
