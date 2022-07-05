@@ -11,6 +11,7 @@
 @stop
 
 @section('content')
+@include('layouts.error')
     <div class="container-fluid">
         <form action="{{ route('monitor.storeZendeskVisualization') }}" method="POST" enctype="multipart/form-data">
             @csrf

@@ -14,6 +14,7 @@
 @stop
 
 @section('content')
+@include('layouts.error')
     <div class="container-fluid">
     </div>
     <!-- Modal -->
