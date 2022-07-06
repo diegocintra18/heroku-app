@@ -133,4 +133,21 @@ class ZendeskController extends Controller
             return FALSE;
         }
     }
+
+    public function callApiZendesk($path, $body){
+        $baseUrl = "https://fishway.zendesk.com/api/v2/" . $path;
+        
+        if($body == null){
+            $response = Http::withHeaders([
+                'Authorization' => 'Basic ' . 'ZGllZ29AZWNvbW1lcmNlc2ltcGxpZmljYWRvLmNvbS5icjpEaWVnbzkxMzUq',
+                'Content-type' => 'Application/json'
+            ])->get($baseUrl);
+    
+            if ($response->successful() == TRUE){
+                return json_decode($response);
+            }else{
+                return FALSE;
+            }
+        }
+    }
 }

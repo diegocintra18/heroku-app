@@ -8,6 +8,7 @@
 
 @section('content')
     <div class="container-fluid">
+        @include('layouts.error')
         <div class="col-4">
             <div class="card">
                 <div class="card-body">
@@ -29,5 +30,4 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
 @stop

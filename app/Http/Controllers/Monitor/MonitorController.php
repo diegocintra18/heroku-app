@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Monitor;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\ZendeskController;
 use App\Models\Zendesk\ZendeskRules;
 use Illuminate\Http\Request;
 
@@ -33,6 +34,12 @@ class MonitorController extends Controller
     public function storeZendeskVisualization(Request $request){
         $data = $request->all();
 
+        //$validate = $data['zendesk_visualization_id'] > 0 ? $this->validateVisualization($data['zendesk_visualization_id']) : false;
+
+        if($data['zendesk_visualization_id'] > 0){
+            $this->validateVisualization($data['zendesk_visualization_id']);
+        }
+
         if($data['green_range'] > $data['yellow_range']){
             return redirect()->back()->with('error', "O valor máximo da cor verde não pode ser maior que o amarelo");
         }
@@ -42,6 +49,17 @@ class MonitorController extends Controller
         ZendeskRules::create($data);
 
         return redirect()->route('monitor.visualizationRules')->with('message', 'Visualização salva com sucesso!');
+    }
+
+    public function validateVisualization($id){
+        $zendesk = new ZendeskController;
+        $path = 'views/' . $id . '/count.json';
+        $response = $zendesk->callApiZendesk($path, $body = null);
+        if($response == false){
+            return redirect()->back()->with('error', 'Id de visualização inválido');
+        }else{
+            return TRUE;
+        }
     }
 
     /**
