@@ -34,14 +34,14 @@ class MonitorController extends Controller
     public function storeZendeskVisualization(Request $request){
         $data = $request->all();
 
-        //$validate = $data['zendesk_visualization_id'] > 0 ? $this->validateVisualization($data['zendesk_visualization_id']) : false;
-
-        if($data['zendesk_visualization_id'] > 0){
-            $this->validateVisualization($data['zendesk_visualization_id']);
+        if($this->validateVisualization($data['zendesk_visualization_id']) == FALSE){
+            return redirect()->back()->with('error', 'O Id de visualização está inválido, verifique o id e tente novamente');
         }
-
         if($data['green_range'] > $data['yellow_range']){
             return redirect()->back()->with('error', "O valor máximo da cor verde não pode ser maior que o amarelo");
+        }
+        if(ZendeskRules::where('zendesk_visualization_id', $data['zendesk_visualization_id'])->where('client_id', 1)->exists()){
+            return redirect()->back()->with('error', "Não é possível salvar duas vezes a mesma visualização");
         }
 
         $data['red_range'] = $data["yellow_range"] + 1;
@@ -56,7 +56,7 @@ class MonitorController extends Controller
         $path = 'views/' . $id . '/count.json';
         $response = $zendesk->callApiZendesk($path, $body = null);
         if($response == false){
-            return redirect()->back()->with('error', 'Id de visualização inválido');
+            return FALSE;
         }else{
             return TRUE;
         }
