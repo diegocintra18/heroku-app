@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Clients;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class ClientsController extends Controller
 {
@@ -15,6 +17,10 @@ class ClientsController extends Controller
     public function index()
     {
         //
+    }
+
+    public function getLoggedClient(){
+        return json_decode(DB::table('userClients')->where('user_id', Auth::user()->id)->select('client_id')->get())[0]->client_id;
     }
 
     /**

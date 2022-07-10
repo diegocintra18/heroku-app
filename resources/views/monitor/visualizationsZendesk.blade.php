@@ -46,7 +46,6 @@
                 <label for="">Ordem de exibição</label>
                 <input type="number" class="form-control" name="order" id="">
             </div>
-            <input type="hidden" name="client_id" value="1">
             <button type="submit" class="btn btn-success">Salvar</button>
         </form>
     </div>

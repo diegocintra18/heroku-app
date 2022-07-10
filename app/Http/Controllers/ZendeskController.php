@@ -46,29 +46,32 @@ class ZendeskController extends Controller
             $domain = explode('.zendesk.com', $request->domain);
         }
 
+        $client = new ClientsController;
+        $clientId = $client->getLoggedClient();
+
         $data = array(
             'user_email' => $user_email,
             'password' => $password,
             'domain' => $domain[0],
-            'client_id' => 1
+            'client_id' => $clientId
         );
 
         if($this->zendeskValidate($data) == TRUE){
         
             Zendesk::create($data);
+
             $settings = new SettingsController;
     
             $dataSettings = array(
                 'config_name' => 'Zendesk Support',
                 'config_value' => $data['domain'],
                 'status' => 1,
-                'client_id' => 1
+                'client_id' => $clientId
             );
     
             $settings->store($dataSettings);
 
             return redirect()->back()->with('message', 'Integração realizada com sucesso!');
-
         }else{
             return redirect()->back()->with('message', 'Ocorreu um erro na validação dos dados, verifique os mesmos e tente novamente!');
         }
@@ -135,14 +138,28 @@ class ZendeskController extends Controller
     }
 
     public function callApiZendesk($path, $body){
-        $baseUrl = "https://fishway.zendesk.com/api/v2/" . $path;
+        $client = new ClientsController;
+
+        $domain = json_decode(Zendesk::where('client_id', $client->getLoggedClient())->select('domain')->get())[0]->domain;
+        $baseUrl = "https://" . $domain . ".zendesk.com/api/v2/" . $path;
         
         if($body == null){
             $response = Http::withHeaders([
                 'Authorization' => 'Basic ' . 'ZGllZ29AZWNvbW1lcmNlc2ltcGxpZmljYWRvLmNvbS5icjpEaWVnbzkxMzUq',
                 'Content-type' => 'Application/json'
             ])->get($baseUrl);
-    
+            
+            if ($response->successful() == TRUE){
+                return json_decode($response);
+            }else{
+                return FALSE;
+            }
+        }else{
+            $response = Http::withHeaders([
+                'Authorization' => 'Basic ' . 'ZGllZ29AZWNvbW1lcmNlc2ltcGxpZmljYWRvLmNvbS5icjpEaWVnbzkxMzUq',
+                'Content-type' => 'Application/json'
+                ])->body($body)->get($baseUrl);
+                
             if ($response->successful() == TRUE){
                 return json_decode($response);
             }else{

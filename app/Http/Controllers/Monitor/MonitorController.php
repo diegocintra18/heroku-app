@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Monitor;
 
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\ZendeskController;
+use App\Http\Requests\storeZendeskVisualization;
 use App\Models\Zendesk\ZendeskRules;
 use Illuminate\Http\Request;
 
@@ -20,7 +22,15 @@ class MonitorController extends Controller
     }
 
     public function monitorSettings(){
-        return view('monitor.settings');
+        $client = new ClientsController;
+        $clientId = $client->getLoggedClient();
+        
+        if(ZendeskRules::where('client_id', $clientId)->exists()){
+            $rules = json_decode(ZendeskRules::where('client_id', $clientId)->get());
+            return view('monitor.settings', compact('rules'));
+        }else{
+            return view('monitor.settings');
+        }
     }
 
     public function zendeskViewsRules(){
@@ -31,20 +41,22 @@ class MonitorController extends Controller
         return view('monitor.visualizationsZendesk');
     }
 
-    public function storeZendeskVisualization(Request $request){
+    public function storeZendeskVisualization(storeZendeskVisualization $request){
         $data = $request->all();
 
         if($this->validateVisualization($data['zendesk_visualization_id']) == FALSE){
             return redirect()->back()->with('error', 'O Id de visualização está inválido, verifique o id e tente novamente');
         }
-        if($data['green_range'] > $data['yellow_range']){
-            return redirect()->back()->with('error', "O valor máximo da cor verde não pode ser maior que o amarelo");
-        }
-        if(ZendeskRules::where('zendesk_visualization_id', $data['zendesk_visualization_id'])->where('client_id', 1)->exists()){
-            return redirect()->back()->with('error', "Não é possível salvar duas vezes a mesma visualização");
+        
+        $client = new ClientsController;
+        $clientId = $client->getLoggedClient();
+
+        if(ZendeskRules::where('client_id', $clientId)->where('zendesk_visualization_id', $data['zendesk_visualization_id'])->exists()){
+            return redirect()->back()->with('error', 'Não é possível salvar a mesma visualização do Zendesk mais de uma vez');
         }
 
         $data['red_range'] = $data["yellow_range"] + 1;
+        $data['client_id'] = $clientId;
 
         ZendeskRules::create($data);
 
@@ -55,11 +67,8 @@ class MonitorController extends Controller
         $zendesk = new ZendeskController;
         $path = 'views/' . $id . '/count.json';
         $response = $zendesk->callApiZendesk($path, $body = null);
-        if($response == false){
-            return FALSE;
-        }else{
-            return TRUE;
-        }
+
+        return $response == TRUE ? $response : FALSE;
     }
 
     /**

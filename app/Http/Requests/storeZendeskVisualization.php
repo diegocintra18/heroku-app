@@ -13,7 +13,7 @@ class storeZendeskVisualization extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -33,9 +33,11 @@ class storeZendeskVisualization extends FormRequest
 
     public function messages()
     {
-        return [
-            'zendesk_visualization_name.required' => 'O campo Nome da Visualização é obrigatório!',
-            'zendesk_visualization_id.required' => 'O campo Id da Visualização é obrigatório!',
-        ];
+       return [
+           'zendesk_visualization_name.required' => 'O campo Nome da Visualização é obrigatório!',
+           'zendesk_visualization_id.required' => 'O campo Id da Visualização é obrigatório!',
+           'green_range.lte' => 'O campo Valor Máximo para a cor verde não pode ser maior que o amarelo',
+           'yellow_range.gte' => 'O campo Valor Máximo para a cor amarela não pode ser menor que o verde',
+       ];
     }
 }

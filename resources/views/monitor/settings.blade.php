@@ -7,16 +7,40 @@
         <div class="col">
             <h1>Configurações do Monitor</h1>
         </div>
-        <div class="col float-right">
+        <div class="col text-right">
             <button class="btn btn-success" data-toggle="modal" data-target="#ruleType">Adicionar regra</button>
         </div>
     </div>
 @stop
 
 @section('content')
-@include('layouts.error')
-    <div class="container-fluid">
+    @include('layouts.error')
+    <div class="container-fluid mt-3">
+        <div class="table-responsive table-hover">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Nome da Regra</th>
+                        <th scope="col">Ordem</th>
+                        <th scope="col" class="text-right">Ações</th>
+                    </tr>
+                </thead>
+                @foreach ($rules as $rule)
+                    <tr>
+                        <td>{{$rule->id}}</td>
+                        <td>{{$rule->zendesk_visualization_name}}</td>
+                        <td>{{$rule->order}}</td>
+                        <td class="text-right">
+                            <button class="btn btn-primary">Editar</button>
+                            <button class="btn btn-danger">Excluir</button>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+        </div>
     </div>
+
     <!-- Modal -->
     <div class="modal fade" id="ruleType" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
