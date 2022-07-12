@@ -73,7 +73,7 @@ class ZendeskController extends Controller
 
             return redirect()->back()->with('message', 'Integração realizada com sucesso!');
         }else{
-            return redirect()->back()->with('message', 'Ocorreu um erro na validação dos dados, verifique os mesmos e tente novamente!');
+            return redirect()->back()->with('error', 'Ocorreu um erro na validação dos dados, verifique os mesmos e tente novamente!');
         }
     }
 
@@ -140,12 +140,13 @@ class ZendeskController extends Controller
     public function callApiZendesk($path, $body){
         $client = new ClientsController;
 
-        $domain = json_decode(Zendesk::where('client_id', $client->getLoggedClient())->select('domain')->get())[0]->domain;
-        $baseUrl = "https://" . $domain . ".zendesk.com/api/v2/" . $path;
+        $getCredentials = json_decode(Zendesk::where('client_id', $client->getLoggedClient())->select('domain', 'password')->get()[0]);
+        
+        $baseUrl = "https://" . $getCredentials->domain . ".zendesk.com/api/v2/" . $path;
         
         if($body == null){
             $response = Http::withHeaders([
-                'Authorization' => 'Basic ' . 'ZGllZ29AZWNvbW1lcmNlc2ltcGxpZmljYWRvLmNvbS5icjpEaWVnbzkxMzUq',
+                'Authorization' => 'Basic ' . $getCredentials->password,
                 'Content-type' => 'Application/json'
             ])->get($baseUrl);
             

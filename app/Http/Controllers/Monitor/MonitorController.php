@@ -18,7 +18,35 @@ class MonitorController extends Controller
      */
     public function index()
     {
+        $client = new ClientsController;
+        $clientId = $client->getLoggedClient();
+
+        $getIndicator = new ZendeskController;
         
+        if(ZendeskRules::where('client_id', $clientId)->exists()){
+            $rules = json_decode(ZendeskRules::where('client_id', $clientId)->get());
+            $kpis = [];
+
+            foreach($rules as $r => $rule){
+                $kpis[$r] = array(
+                    'name' => $rule->zendesk_visualization_name,
+                    'rule_type'=> $rule->rule_type,
+                    'zendesk_formula'=> $rule->zendesk_formula,
+                    'green_range' => $rule->green_range,
+                    'yellow_range'=> $rule->yellow_range,
+                    'red_range'=> $rule->yellow_range + 1,
+                    'order' => $rule->order,
+                );
+
+                $path = 'views/' . $rule->zendesk_visualization_id . '/count.json';
+
+                $kpis[$r]['indicator'] = $getIndicator->callApiZendesk($path, $body = null)->view_count->value;
+            }
+
+            return view('monitor.index', compact('kpis'));
+        }else{
+            return view('monitor.index');
+        }
     }
 
     public function monitorSettings(){

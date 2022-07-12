@@ -16,29 +16,31 @@
 @section('content')
     @include('layouts.error')
     <div class="container-fluid mt-3">
-        <div class="table-responsive table-hover">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome da Regra</th>
-                        <th scope="col">Ordem</th>
-                        <th scope="col" class="text-right">Ações</th>
-                    </tr>
-                </thead>
-                @foreach ($rules as $rule)
-                    <tr>
-                        <td>{{$rule->id}}</td>
-                        <td>{{$rule->zendesk_visualization_name}}</td>
-                        <td>{{$rule->order}}</td>
-                        <td class="text-right">
-                            <button class="btn btn-primary">Editar</button>
-                            <button class="btn btn-danger">Excluir</button>
-                        </td>
-                    </tr>
-                @endforeach
-            </table>
-        </div>
+        @if(isset($rules))
+            <div class="table-responsive table-hover">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Nome da Regra</th>
+                            <th scope="col">Ordem</th>
+                            <th scope="col" class="text-right">Ações</th>
+                        </tr>
+                    </thead>
+                    @foreach ($rules as $rule)
+                        <tr>
+                            <td>{{$rule->id}}</td>
+                            <td>{{$rule->zendesk_visualization_name}}</td>
+                            <td>{{$rule->order}}</td>
+                            <td class="text-right">
+                                <button class="btn btn-primary">Editar</button>
+                                <button class="btn btn-danger">Excluir</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </table>
+            </div>
+        @endif
     </div>
 
     <!-- Modal -->
