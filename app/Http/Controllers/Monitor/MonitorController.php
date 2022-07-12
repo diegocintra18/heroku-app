@@ -8,6 +8,7 @@ use App\Http\Controllers\ZendeskController;
 use App\Http\Requests\storeZendeskVisualization;
 use App\Models\Zendesk\ZendeskRules;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class MonitorController extends Controller
 {
@@ -24,7 +25,7 @@ class MonitorController extends Controller
         $getIndicator = new ZendeskController;
         
         if(ZendeskRules::where('client_id', $clientId)->exists()){
-            $rules = json_decode(ZendeskRules::where('client_id', $clientId)->get());
+            $rules = json_decode(ZendeskRules::where('client_id', $clientId)->orderBy('order')->get());
             $kpis = [];
 
             foreach($rules as $r => $rule){
@@ -32,15 +33,19 @@ class MonitorController extends Controller
                     'name' => $rule->zendesk_visualization_name,
                     'rule_type'=> $rule->rule_type,
                     'zendesk_formula'=> $rule->zendesk_formula,
-                    'green_range' => $rule->green_range,
-                    'yellow_range'=> $rule->yellow_range,
-                    'red_range'=> $rule->yellow_range + 1,
                     'order' => $rule->order,
                 );
-
+                
                 $path = 'views/' . $rule->zendesk_visualization_id . '/count.json';
-
                 $kpis[$r]['indicator'] = $getIndicator->callApiZendesk($path, $body = null)->view_count->value;
+
+                if($kpis[$r]['indicator'] > $rule->yellow_range){
+                    $kpis[$r]['bg_color'] = "bg-danger";
+                }elseif($kpis[$r]['indicator'] <= $rule->yellow_range && $kpis[$r]['indicator'] > $rule->green_range){
+                    $kpis[$r]['bg_color'] = "bg-warning";
+                }else{
+                    $kpis[$r]['bg_color'] = "bg-success";
+                }
             }
 
             return view('monitor.index', compact('kpis'));
