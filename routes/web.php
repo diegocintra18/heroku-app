@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\IntegrationsController;
 use App\Http\Controllers\Monitor\MonitorController;
 use App\Http\Controllers\ZendeskController;
@@ -20,14 +21,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
-
-
-Route::get('/integracoes', [IntegrationsController::class, 'index'])->name('integrations.index')->middleware(['auth']);
-
 Route::middleware(['auth'])->group(function () {
+    Route::get('/integracoes', [IntegrationsController::class, 'index'])->name('integrations.index');
     Route::post('/salvar-zendesk', [ZendeskController::class, 'store'])->name('zendesk.store');
 });
 
@@ -38,9 +33,9 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/salvar-visualizacao', [MonitorController::class, 'storeZendeskVisualization'])->name('monitor.storeZendeskVisualization');
 });
 
+Route::post('/criar-cliente', [ClientsController::class, 'store'])->name('clients.store');
+
 
 require __DIR__.'/auth.php';
 
 Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
