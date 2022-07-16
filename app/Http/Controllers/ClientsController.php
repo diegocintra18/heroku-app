@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\clientRequest;
 use App\Models\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -39,9 +40,14 @@ class ClientsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(clientRequest $request)
     {
-        echo '<pre>', print_r($request->all()), '</pre>';die;
+        $data = $request->validated();
+
+        // api de validação de CNPJ https://publica.cnpj.ws/cnpj/
+        // DOC: https://www.cnpj.ws/docs/api-publica/consultando-cnpj
+
+        dd($data);
     }
 
     /**
