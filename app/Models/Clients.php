@@ -14,11 +14,20 @@ class Clients extends Model
     protected $fillable = [
         'name',
         'cnpj',
+        'inscricao_estadual',
         'email',
         'phone',
         'address_name',
         'address_number',
+        'district',
+        'complement',
+        'city',
         'state',
-        'zip_code',
+        'zipcode',
+        'status'
     ];
+
+    //status = 0 -> cancelado
+    //status = 1 -> aguardando pagamento
+    //status = 2 -> ativo
 }

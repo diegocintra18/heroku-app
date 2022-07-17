@@ -22,6 +22,9 @@ Route::get('/', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('dashboard');
+    });
     Route::get('/integracoes', [IntegrationsController::class, 'index'])->name('integrations.index');
     Route::post('/salvar-zendesk', [ZendeskController::class, 'store'])->name('zendesk.store');
 });

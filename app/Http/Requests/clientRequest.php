@@ -26,7 +26,7 @@ class clientRequest extends FormRequest
         return [
             'name' => 'required|string|min:3',
             'email' => 'required|email',
-            'password' => 'required',
+            'password' => 'required|min:8',
             'business_name' => 'required|string',
             'cnpj' => 'required|string',
             'phone' => 'required',
@@ -47,6 +47,7 @@ class clientRequest extends FormRequest
             'email.required' => 'O campo e-mail é obrigatório',
             'email.email' => 'O campo e-mail está inválido, verifique os dados e tente novamente',
             'password.required' => 'O campo senha é obrigatório',
+            'password.min' => 'O campo senha deve conter no mínimo 8 digitos',
             'business_name.required' => 'O campo razão social é obrigatório',
             'cnpj.required' => 'O campo CNPJ é obrigatório',
             'phone.required' => 'O campo Whatsapp é obrigatório',
