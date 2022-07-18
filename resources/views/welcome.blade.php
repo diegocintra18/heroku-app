@@ -34,20 +34,26 @@
                         <input type="email" class="form-control" name="email" placeholder="ned-stark@winterfell.com" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" >
                     </div>
                     <div class="form-group">
-                        <label for="">Senha <span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password" >
-                    </div>
-                    <div class="form-group">
-                        <label for="">Razão Social</label>
-                        <input type="text" class="form-control" name="business_name" placeholder="Empresa LTDA" id="business_name" value="{{ old('business_name') }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="">CNPJ <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
-                    </div>
-                    <div class="form-group">
                         <label for="">Whatsapp <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="phone" placeholder="(16)99123-4567" id="phone" value="{{ old('phone') }}"  >
+                    </div>
+                    <div class="form-group">
+                        <label for="">Senha (no mínimo 8 digitos)<span class="text-danger">*</span></label>
+                        <input type="password" class="form-control" name="password" id="password" >
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">CNPJ <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label for="">Razão Social</label>
+                                <input type="text" class="form-control" name="business_name" placeholder="Empresa LTDA" id="business_name" value="{{ old('business_name') }}" >
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="">CEP <span class="text-danger">*</span></label>
