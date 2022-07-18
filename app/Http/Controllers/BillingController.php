@@ -4,14 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class BillingController extends Controller
 {
+    public function checkout(){
+        return view('billing.paymentSelect');
+    }
+    
     public function makePayment(){
         
-        $plan_value = 49.9;
+        $plan_value = "600";
         
-        $payload = array(
+        $response = Http::post('https://www.2rpay.com.br/api/v1/transaction', [
             'merchant_key' => 'ISdjHg3YRKx0VOqpREJGx6edtlAXOG3B',
             'payment_method' => 'pix',
             'pix' => array(
@@ -19,8 +24,8 @@ class BillingController extends Controller
             ),
             'amount' => $plan_value,
             'customer' => array(
-                'firstname' => 'Diego',
-                'lastname' => 'Cintra',
+                'firstName' => 'Diego',
+                'lastName' => 'Cintra',
                 'email' => 'diegoffcintra@gmail.com',
                 'phoneNumber' => '16 991353306',
                 'documentType' => 'cnpj',
@@ -33,11 +38,10 @@ class BillingController extends Controller
                 'city' => 'Franca',
                 'state' => 'SP',
                 'ipAddress' => '127.0.0.1'
-            )
-        );
-        
-        $response = Http::post('https://www.2rpay.com.br/api/v1/transaction', json_encode($payload));
+            ),
+            'postback_url' => 'localhost/callback/pix'
+        ]);
 
-        dd($response->getBody());
+        echo '<pre>', $response->body(), '</pre>';die;
     }
 }

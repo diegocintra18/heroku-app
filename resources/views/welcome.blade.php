@@ -1,113 +1,89 @@
-<!doctype html>
-<html lang="pt-br">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
-
-        <title>Monitor</title>
-    </head>
-    <body class="bg-light">
-        <div class="container mt-5 mb-5">
-            <div class="col-8" style="margin: auto">
-                <h2>Cadastre-se</h2>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif              
-                <form action="{{ route('clients.store') }}" method="POST" class="bg-white p-3">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Nome <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" placeholder="João das Neves" id="name" aria-describedby="emailHelp" value="{{ old('name') }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="">E-mail <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="email" placeholder="ned-stark@winterfell.com" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" >
-                    </div>
-                    <div class="form-group">
-                        <label for="">Whatsapp <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="phone" placeholder="(16)99123-4567" id="phone" value="{{ old('phone') }}"  >
-                    </div>
-                    <div class="form-group">
-                        <label for="">Senha (no mínimo 8 digitos)<span class="text-danger">*</span></label>
-                        <input type="password" class="form-control" name="password" id="password" >
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">CNPJ <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Razão Social</label>
-                                <input type="text" class="form-control" name="business_name" placeholder="Empresa LTDA" id="business_name" value="{{ old('business_name') }}" >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="">CEP <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="zipcode" placeholder="12.345-000" id="zipcode" value="{{ old('zipcode') }}"  >
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Logradouro <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="address_name" id="address_name" value="{{ old('address_name') }}"  >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Número <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="address_number" id="address_number" value="{{ old('address_number') }}"  >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Bairro <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="district" id="district" value="{{ old('district') }}"  >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Complemento</label>
-                                <input type="text" class="form-control" name="complement" id="complement" value="{{ old('complement') }}"  >
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Cidade <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="city" id="city" value="{{ old('city') }}"  >
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="form-group">
-                                <label for="">Estado <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" name="state" id="state" value="{{ old('state') }}"  >
-                            </div>
-                        </div>
-                    </div>
-                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                </form>
+            
+@include('layouts.site-header')
+<div class="col-5 mt-5 mb-5" style="margin: auto">
+    <h2>Cadastre-se</h2>
+    <form action="{{ route('clients.store') }}" method="POST" class="bg-white p-3">
+        @csrf
+        <div class="form-group">
+            <label for="">Nome <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="name" placeholder="João das Neves" id="name" aria-describedby="emailHelp" value="{{ old('name') }}" >
+        </div>
+        <div class="form-group">
+            <label for="">E-mail <span class="text-danger">*</span></label>
+            <input type="email" class="form-control" name="email" placeholder="ned-stark@winterfell.com" id="email" aria-describedby="emailHelp" value="{{ old('email') }}" >
+        </div>
+        <div class="form-group">
+            <label for="">Whatsapp <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="phone" placeholder="(16)99123-4567" id="phone" value="{{ old('phone') }}"  >
+        </div>
+        <div class="form-group">
+            <label for="">Senha (no mínimo 8 digitos)<span class="text-danger">*</span></label>
+            <input type="password" class="form-control" name="password" id="password" >
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">CNPJ <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Razão Social</label>
+                    <input type="text" class="form-control" name="business_name" placeholder="Empresa LTDA" id="business_name" value="{{ old('business_name') }}" >
+                </div>
             </div>
         </div>
-
-        
-        <!-- Optional JavaScript; choose one of the two! -->
+        <div class="form-group">
+            <label for="">CEP <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="zipcode" placeholder="12.345-000" id="zipcode" value="{{ old('zipcode') }}"  >
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Logradouro <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="address_name" id="address_name" value="{{ old('address_name') }}"  >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Número <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="address_number" id="address_number" value="{{ old('address_number') }}"  >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Bairro <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="district" id="district" value="{{ old('district') }}"  >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Complemento</label>
+                    <input type="text" class="form-control" name="complement" id="complement" value="{{ old('complement') }}"  >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Cidade <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="city" id="city" value="{{ old('city') }}"  >
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label for="">Estado <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control" name="state" id="state" value="{{ old('state') }}"  >
+                </div>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+    </form>
+</div>
+<!-- Optional JavaScript; choose one of the two! -->
 
         <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
        
@@ -132,42 +108,42 @@
                 $('#phone').mask('(00)00000-0000');
                 $('#cnpj').mask('00.000.000/0000-00', {reverse: false});
                 $('#zipcode').mask('00.000-000');
-
+        
                 function cleanForm() {
                     $("#address_name").val("");
                     $("#district").val("");
                     $("#city").val("");
                     $("#state").val("");
                 }
-
+        
                 $("#zipcode").blur(function() {
                     var zipcode = $(this).val().replace(/\D/g, '');
-
+        
                     if (zipcode != "") {
                         
                         var zipcodeValidate = /^[0-9]{8}$/;
-
+        
                         if(zipcodeValidate.test(zipcode)) {
-
+        
                             $("#address_name").val("consultando endereço...");
                             $("#district").val("consultando endereço...");
                             $("#city").val("consultando endereço...");
                             $("#state").val("consultando endereço...");
-
+        
                             $.getJSON("https://viacep.com.br/ws/"+ zipcode +"/json/?callback=?", function(data) {
-
+        
                                 if (!("erro" in data)) {
                                     $("#address_name").val(data.logradouro);
                                     $("#district").val(data.bairro);
                                     $("#city").val(data.localidade);
                                     $("#state").val(data.uf);
-
+        
                                     $("#zipcode").addClass('text-success border-success');
                                     $("#address_name").addClass('text-success border-success');
                                     $("#district").addClass('text-success border-success');
                                     $("#city").addClass('text-success border-success');
                                     $("#state").addClass('text-success border-success');
-
+        
                                     $('#address_number').focus();
                                 } else {
                                     cleanForm();
@@ -182,7 +158,7 @@
                         cleanForm();
                     }
                 });
-
+        
                 $("#name").blur(function(){
                     if($(this).val() != ""){
                         $("#name").addClass('text-success border-success');
@@ -190,11 +166,11 @@
                         $("#name").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#name").click(function(){
                     $("#name").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#email").blur(function(){
                     if($(this).val() != ""){
                         $("#email").addClass('text-success border-success');
@@ -202,11 +178,11 @@
                         $("#email").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#email").click(function(){
                     $("#email").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#password").blur(function(){
                     if($(this) != ""){
                         $("#password").addClass('text-success border-success');
@@ -214,11 +190,11 @@
                         $("#password").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#password").click(function(){
                     $("#password").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#business_name").blur(function(){
                     if($(this).val() != ""){
                         $("#business_name").addClass('text-success border-success');
@@ -226,15 +202,15 @@
                         $("#business_name").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#business_name").click(function(){
                     $("#business_name").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#cnpj").blur(function(){
                     if($(this).val() != ""){
                         var cnpjValidate = /^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$/;
-
+        
                         if(cnpjValidate.test($(this).val())){
                             var cnpj = $(this).val().replaceAll('.', '');
                             if(validarCNPJ(cnpj) == true){
@@ -251,11 +227,11 @@
                         $("#cnpj").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#cnpj").click(function(){
                     $("#cnpj").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#phone").blur(function(){
                     if($(this).val() != ""){
                         $("#phone").addClass('text-success border-success');
@@ -263,11 +239,11 @@
                         $("#phone").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#phone").click(function(){
                     $("#phone").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 $("#address_number").blur(function(){
                     if($(this).val() != ""){
                         $("#address_number").addClass('text-success border-success');
@@ -275,19 +251,19 @@
                         $("#address_number").addClass('text-danger border-danger');
                     }
                 });
-
+        
                 $("#address_number").click(function(){
                     $("#address_number").removeClass('text-success border-success text-danger border-danger');
                 });
-
+        
                 function validarCNPJ(cnpj) {
                     cnpj = cnpj.replace(/[^\d]+/g,'');
-
+        
                     if(cnpj == '') return false;
                     
                     if (cnpj.length != 14)
                         return false;
-
+        
                     // Elimina CNPJs invalidos conhecidos
                     if (cnpj == "00000000000000" || 
                         cnpj == "11111111111111" || 
@@ -308,7 +284,7 @@
                     digitos = cnpj.substring(tamanho);
                     soma = 0;
                     pos = tamanho - 7;
-
+        
                     for (i = tamanho; i >= 1; i--) {
                         soma += numeros.charAt(tamanho - i) * pos--;
                         if (pos < 2){
@@ -325,14 +301,14 @@
                     numeros = cnpj.substring(0,tamanho);
                     soma = 0;
                     pos = tamanho - 7;
-
+        
                     for (i = tamanho; i >= 1; i--) {
                         soma += numeros.charAt(tamanho - i) * pos--;
                         if (pos < 2){
                             pos = 9;
                         }
                     }
-
+        
                     resultado = soma % 11 < 2 ? 0 : 11 - soma % 11;
                     if (resultado != digitos.charAt(1)){
                         return false;
@@ -344,3 +320,4 @@
         </script>
     </body>
 </html>
+        

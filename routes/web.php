@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BillingController;
 use App\Http\Controllers\ClientsController;
 use App\Http\Controllers\IntegrationsController;
 use App\Http\Controllers\Monitor\MonitorController;
@@ -37,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::post('/criar-cliente', [ClientsController::class, 'store'])->name('clients.store');
+
+Route::get('/pay', [BillingController::class, 'makePayment']);
+Route::get('/checkout', [BillingController::class, 'checkout']);
 
 
 require __DIR__.'/auth.php';
