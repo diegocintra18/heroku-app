@@ -26,7 +26,7 @@ class ClientsController extends Controller
     public function ConversionApi(){
         $ipAddress = strval($_SERVER['REMOTE_ADDR']);
         //echo '<pre>' , var_dump($ipAddress) , '</pre>'; die;
-        $token = 'EAAHd3nZBFfM0BADtAlKDz0uoe0USm2CzpJZC25LJHaxTqZC33hnMNrRfd1HJN7PZBSBcLZBMFfPrQEsoOaJIWj7VZAgpyBVbYgeQ52kn9S4UuxYZC4ZCcOHdxFwZBSsl0cpy8sM4P4cS4aKzN2EtdoKfHfOAXpCH6H6PJBdgQavCBttyOl3OZBPAT6NbG603yDBJYZD';
+        $token = 'EAAHd3nZBFfM0BAFAuyaW2BaSUiTcKob09IYqlMB6cCRVVH8vuMwJRMwG68iLIeoZAeP0jZCTEmH5jnNFmumRiWVjGkXBhO6jjlI8sRFkWUGhrz6nvE3gAyTunQysWptZAjsAstaovoOseDnx4o69OYNVJKGqWyU0ZBYLESpuH1vJg2BBPCTjjfva2LQqDYP0ZD';
         $request = Http::post('https://graph.facebook.com/v14.0/1667876963346713/events?access_token='. $token, [
             "data" => array(
                 0 => [
@@ -35,8 +35,6 @@ class ClientsController extends Controller
                     "event_time" => 1658324995,
                     "action_source" => "website",
                     "user_data" => [
-                        "client_user_agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1",
-                        "em" => "f660ab912ec121d1b1e928a0bb4bc61b15f5ad44d5efdc4e1c92a25e99b8e44a",
                         "client_ip_address" => $ipAddress
                     ],
                     "custom_data" => [
