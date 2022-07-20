@@ -2,14 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Spatie\LaravelIgnition\Recorders\DumpRecorder\Dump;
 
 class BillingController extends Controller
 {
-    public function checkout(){
-        return view('billing.paymentSelect');
+    public function checkout($hash){
+        if(Clients::where('client_hash', $hash)->exists()){
+            $client = json_decode(Clients::where('client_hash', $hash)->get())[0];
+            return view('billing.paymentSelect', compact('client'));
+        }else{
+            return redirect()->route('welcome');
+        }
     }
     
     public function makePayment(){

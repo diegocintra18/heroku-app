@@ -24,7 +24,8 @@ class Clients extends Model
         'city',
         'state',
         'zipcode',
-        'status'
+        'status',
+        'client_hash'
     ];
 
     //status = 0 -> cancelado

@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -40,7 +40,7 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/criar-cliente', [ClientsController::class, 'store'])->name('clients.store');
 
 Route::get('/pay', [BillingController::class, 'makePayment']);
-Route::get('/checkout', [BillingController::class, 'checkout']);
+Route::get('/checkout/{hash}', [BillingController::class, 'checkout']);
 
 
 require __DIR__.'/auth.php';

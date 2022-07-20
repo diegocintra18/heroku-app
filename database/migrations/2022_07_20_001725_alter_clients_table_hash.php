@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->integer('status')->after('zipcode');
+            $table->string('client_hash')->after('status');
         });
     }
 

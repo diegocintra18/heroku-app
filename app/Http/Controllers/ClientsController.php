@@ -50,8 +50,9 @@ class ClientsController extends Controller
         if(!isset($data['complement'])){
             $data['complement'] = 'empresa';
         }
-        $cnpjRegex = array(".", "/", "-");
-        $cnpj = str_replace($cnpjRegex, '', $data['cnpj']);
+
+        // $cnpjRegex = array(".", "/", "-");
+        // $cnpj = str_replace($cnpjRegex, '', $data['cnpj']);
 
         // API de validação de situação cadastral do CNPJ - DOC: https://www.cnpj.ws/docs/api-publica/consultando-cnpj
         // $response = Http::get('https://publica.cnpj.ws/cnpj/' . $cnpj);
@@ -87,17 +88,19 @@ class ClientsController extends Controller
             'state' => $data['state'],
             'zipcode' => $data['zipcode'],
             'status' => 1,
+            'client_hash' => md5($data['cnpj']),
         ]);
         
         $userId = json_decode(DB::table('users')->where('email', $data['email'])->select('id')->get())[0]->id;
-        $clientId = json_decode($client)->id;
 
         DB::table('userClients')->insert([
             'user_id' => $userId,
-            'client_id' => $clientId
+            'client_id' => json_decode($client)->id
         ]);
 
-        return redirect()->route('login');
+        $payment = new BillingController;
+
+        return $payment->checkout(json_decode($client)->client_hash);
     }
 
     /**
