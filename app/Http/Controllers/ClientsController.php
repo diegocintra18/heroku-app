@@ -23,6 +23,36 @@ class ClientsController extends Controller
         //
     }
 
+    public function ConversionApi(){
+        $ipAddress = strval($_SERVER['REMOTE_ADDR']);
+        //echo '<pre>' , var_dump($ipAddress) , '</pre>'; die;
+        $request = Http::post('https://graph.facebook.com/v14.0/1667876963346713/events?access_token=EAAHd3nZBFfM0BAP0Piz8GPlzN2donWrXGaqU2H2N7GKcIXgGNPmRq4WX3pS4moOA0NiqDsKJm3rRlvuU7nI86EyqeKnwZBPfo59vfOrAZA4RFbmsX4E2m3JDImpXNEpGoWVyHTaJvN1Rw8PQQZAImZAsUtZCshZCSlI6jconciZBgHb0cZCkO98dCdVdhxvRyGvEZD', [
+            "data" => array(
+                0 => [
+                    "event_name" => "Purchase",
+                    "event_id" =>  random_int(1000000, 9999999999),
+                    "event_time" => 1658324995,
+                    "event_source_url" => "https://".$_SERVER['HTTP_HOST'],
+                    "action_source" => "website",
+                    "user_data" => [
+                        "client_user_agent" => "Mozilla/5.0 (iPhone; CPU iPhone OS 13_3_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.5 Mobile/15E148 Safari/604.1",
+                        "em" => "f660ab912ec121d1b1e928a0bb4bc61b15f5ad44d5efdc4e1c92a25e99b8e44a",
+                        "client_ip_address" => $ipAddress
+                    ],
+                    "custom_data" => [
+                        "currency" => "BRL",
+                        "value" => "142"
+                    ]
+                ]
+            ),
+            "test_event_code" => "TEST13510"
+        ]);
+
+        echo "<br><br><br>";
+        echo $ipAddress . "<br>";
+        echo '<pre>' , var_dump($request->body()) , '</pre>'; die;
+    }
+
     public function getLoggedClient(){
         return json_decode(DB::table('userClients')->where('user_id', Auth::user()->id)->select('client_id')->get())[0]->client_id;
     }
