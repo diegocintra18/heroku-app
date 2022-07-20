@@ -5,7 +5,7 @@
     <form action="{{ route('clients.store') }}" method="POST" class="bg-white p-3">
         @csrf
         <div class="form-group">
-            <label for="">Nome <span class="text-danger">*</span></label>
+            <label for="">Nome ou Nome da empresa<span class="text-danger">*</span></label>
             <input type="text" class="form-control" name="name" placeholder="João das Neves" id="name" aria-describedby="emailHelp" value="{{ old('name') }}" >
         </div>
         <div class="form-group">
@@ -20,18 +20,10 @@
             <label for="">Senha (no mínimo 8 digitos)<span class="text-danger">*</span></label>
             <input type="password" class="form-control" name="password" id="password" >
         </div>
-        <div class="row">
-            <div class="col">
-                <div class="form-group">
-                    <label for="">CNPJ <span class="text-danger">*</span></label>
-                    <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
-                </div>
-            </div>
-            <div class="col">
-                <div class="form-group">
-                    <label for="">Razão Social</label>
-                    <input type="text" class="form-control" name="business_name" placeholder="Empresa LTDA" id="business_name" value="{{ old('business_name') }}" >
-                </div>
+        <div class="col">
+            <div class="form-group">
+                <label for="">CNPJ <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
             </div>
         </div>
         <div class="form-group">

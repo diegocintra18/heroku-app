@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::post('/criar-cliente', [ClientsController::class, 'store'])->name('clients.store');
 
-Route::get('/pay', [BillingController::class, 'makePayment']);
+Route::post('/success', [BillingController::class, 'makePayment'])->name('billing.makePayment');
 Route::get('/checkout/{hash}', [BillingController::class, 'checkout']);
 
 

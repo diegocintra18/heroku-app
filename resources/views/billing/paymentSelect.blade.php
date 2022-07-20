@@ -9,26 +9,28 @@
                     <h2>Escolha o meio de pagamento</h2>
                 </div>
                 <div class="col mt-3">
-                    <form action="">
+                    <form action="{{ route('billing.makePayment') }}" method="POST">
+                        @csrf
                         <div class="card bg-white">
                             <div class="card-body">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                                    <input class="form-check-input" type="radio" name="payment_method" id="boleto" value="billet">
                                     <label class="form-check-label" for="exampleRadios1">
                                         <span>Boleto Bancário</span>
                                     </label>
                                 </div>
                                 <hr>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                    <input class="form-check-input" type="radio" name="payment_method" id="pix" value="pix" checked>
                                     <label class="form-check-label" for="exampleRadios1">
                                         <span>PIX </span><span class="badge badge-pill badge-primary">Aprovação Imediata</span>
                                     </label>
                                 </div>
                             </div>
                         </div>
-                        <input type="hidden" name="client_id" value="{{$client->id}}">
-                        <button class="btn btn-success btn-lg mt-3">Efetuar Pagamento</button>
+                        <input type="hidden" name="client_hash" value="{{$client->client_hash}}">
+                        <input type="hidden" name="plan_value" value="600">
+                        <button type="submit" class="btn btn-success btn-lg mt-3">Efetuar Pagamento</button>
                     </form>
                 </div>
             </div>
@@ -56,13 +58,13 @@
                     <hr>
                     <strong><span class="">Total: R$ 49,90</span></strong>
                     <hr>
-                    {{-- <form action="">
+                    <!-- {{-- <form action="">
                         <div class="form-group">
                             <label for="">Cupom de Desconto:</label>
                             <input type="text" name="coupon" id="" class="form-control">
                         </div>
                         <button class="btn btn-info btn-block">Aplicar cupom</button>
-                    </form> --}}
+                    </form> --}} -->
                 </div>
             </div>
         </div>

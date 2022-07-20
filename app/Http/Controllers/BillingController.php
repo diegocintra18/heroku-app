@@ -18,34 +18,34 @@ class BillingController extends Controller
         }
     }
     
-    public function makePayment(){
-        
-        $plan_value = "600";
+    public function makePayment(Request $request){
+
+        $data = $request->all();
+        $client = json_decode(Clients::where('client_hash', $data['client_hash'])->get())[0];
         
         $response = Http::post('https://www.2rpay.com.br/api/v1/transaction', [
             'merchant_key' => 'ISdjHg3YRKx0VOqpREJGx6edtlAXOG3B',
-            'payment_method' => 'pix',
-            'pix' => array(
+            'payment_method' => $data['payment_method'],
+            $data['payment_method'] => array(
                 'expiration_days' => 1
             ),
-            'amount' => $plan_value,
+            'amount' => $data['plan_value'],
             'customer' => array(
-                'firstName' => 'Diego',
-                'lastName' => 'Cintra',
-                'email' => 'diegoffcintra@gmail.com',
-                'phoneNumber' => '16 991353306',
+                'firstName' => $client->name,
+                'email' => $client->email,
+                'phoneNumber' => $client->phone,
                 'documentType' => 'cnpj',
-                'documentNumber' => '36771571000177',
-                'zipCode' => '14403450',
-                'address' => 'Rua Ewerton de Paula Merlino',
-                'number_home' => 2271,
+                'documentNumber' => $client->cnpj,
+                'zipCode' => $client->zipcode,
+                'address' => $client->address_name,
+                'number_home' => $client->address_number,
                 'complement' => '',
-                'neighborhood' => 'Santa Cruz',
-                'city' => 'Franca',
-                'state' => 'SP',
+                'neighborhood' => $client->district,
+                'city' => $client->city,
+                'state' => $client->state,
                 'ipAddress' => '127.0.0.1'
-            ),
-            'postback_url' => 'localhost/callback/pix'
+            )
+            //'postback_url' => 'localhost/callback/pix'
         ]);
 
         echo '<pre>', $response->body(), '</pre>';die;

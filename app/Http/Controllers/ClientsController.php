@@ -100,9 +100,8 @@ class ClientsController extends Controller
 
         $payment = new BillingController;
 
-        return $payment->checkout(json_decode($client)->client_hash);
+        return redirect()->route('checkout', json_decode($client)->client_hash);
     }
-
     /**
      * Display the specified resource.
      *
