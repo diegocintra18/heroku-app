@@ -12,7 +12,7 @@ class BillingController extends Controller
     public function checkout($hash){
         if(Clients::where('client_hash', $hash)->exists()){
             $client = json_decode(Clients::where('client_hash', $hash)->get())[0];
-            return view('billing.paymentSelect', compact('client'));
+            return view('billing.checkout', compact('client'));
         }else{
             return redirect()->route('welcome');
         }
@@ -43,10 +43,14 @@ class BillingController extends Controller
                 'neighborhood' => $client->district,
                 'city' => $client->city,
                 'state' => $client->state,
-                'ipAddress' => '127.0.0.1'
+                'ipAddress' => strval($_SERVER['REMOTE_ADDR'])
             )
             //'postback_url' => 'localhost/callback/pix'
         ]);
+
+        $paymentInfo = $response->body();
+
+        return view('billing.success', compact('paymentInfo'));
 
         echo '<pre>', $response->body(), '</pre>';die;
     }

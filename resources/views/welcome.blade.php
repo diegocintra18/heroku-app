@@ -20,11 +20,9 @@
             <label for="">Senha (no mínimo 8 digitos)<span class="text-danger">*</span></label>
             <input type="password" class="form-control" name="password" id="password" >
         </div>
-        <div class="col">
-            <div class="form-group">
-                <label for="">CNPJ <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
-            </div>
+        <div class="form-group">
+            <label for="">CNPJ <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="cnpj" placeholder="12.345.678/0001-99" id="cnpj" value="{{ old('cnpj') }}"  >
         </div>
         <div class="form-group">
             <label for="">CEP <span class="text-danger">*</span></label>
