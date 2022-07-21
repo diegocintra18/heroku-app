@@ -13,7 +13,7 @@
                     <strong>Valor do pedido: </strong><span>R$ 49,90</span><br>
                     <strong>Status: </strong><span>Aguardando Pagamento</span><br>
                     <div class="mt-3 mb-3">
-                        <strong><span>Código do PIX Copia e Cola: <span></strong><br>
+                        <strong><span>Chave do PIX Copia e Cola: <span></strong><br>
                             <div class="form-group">
                                 <textarea class="form-control" id="pixKey" rows="3">00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/23114447/qrs1/v2/01nrYOnZVEmM69ONbdfucZzVrlsl24ASW6Us6uXlLmVbg52040000530398654045.005802BR59102RPAY LTDA6009SAO PAULO62070503***6304067F</textarea>
                             </div>
@@ -35,15 +35,31 @@
     </div>
 </div>
 
+<div class="modal"id="pixModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body p-3">
+            <center class="mt-3">
+                <span class="h3">Chave PIX copiada com sucesso!</span>
+                <div class="mt-3 mb-3">
+                    <button type="button" class="btn btn-success btn-large pr-3 pl-3" data-dismiss="modal">OK</button>
+                    <button type="button" class="btn btn-secondary btn-large pr-3 pl-3" data-dismiss="modal">Fechar</button>
+                </div>
+            </center>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
-function copyToClipBoard() {
+    function copyToClipBoard() {
 
-var content = document.getElementById('pixKey');
+    var content = document.getElementById('pixKey');
 
-content.select();
-    document.execCommand('copy');
-    alert("Chave PIX copiada com sucesso!");
-}
+    content.select();
+        document.execCommand('copy');
+        $('#pixModal').modal(focus);
+    }
 </script>
 
 @include('layouts.site-footer')

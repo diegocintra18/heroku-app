@@ -44,8 +44,8 @@ class BillingController extends Controller
                 'city' => $client->city,
                 'state' => $client->state,
                 'ipAddress' => strval($_SERVER['REMOTE_ADDR'])
-            )
-            //'postback_url' => 'localhost/callback/pix'
+            ),
+            'postback_url' => 'https://webhook.site/a65ea7d1-4b75-4a52-82d1-cc4f44cb308e'
         ]);
 
         $paymentInfo = $response->body();
@@ -53,5 +53,30 @@ class BillingController extends Controller
         return view('billing.success', compact('paymentInfo'));
 
         echo '<pre>', $response->body(), '</pre>';die;
+
+        // retorno da callback
+        // {
+        //     "id": 249497,
+        //     "reference": "82fcf56943a749624b9fa413a4394a796d85817d",
+        //     "amount": "600",
+        //     "status": "paid",
+        //     "pix": {
+        //       "id": "5b6697b1-9b3b-4939-b1a8-fef024ef538d",
+        //       "code": "00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/23114447/qrs1/v2/01Xvcl6wb19jpGDlO6rijeEl66x69OYAZRmypDigzlf1052040000530398654046.005802BR59102RPAY LTDA6009SAO PAULO62070503***63040937",
+        //       "qrcode": "https://cdn.2rpay.com.br/qrcodes/2022/07/82fcf56943a749624b9fa413a4394a796d85817d.png",
+        //       "expiration": "2022-07-22T07:57:33.000Z",
+        //       "additional_info": ""
+        //     },
+        //     "billet": {
+        //       "id": null,
+        //       "code": null,
+        //       "link": null,
+        //       "expiration": "1969-12-31T21:00:00.000Z",
+        //       "additional_info": ""
+        //     },
+        //     "metadata": [],
+        //     "created_at": "2022-07-21T07:57:26.000Z",
+        //     "postback_url": "https://webhook.site/a65ea7d1-4b75-4a52-82d1-cc4f44cb308e"
+        // }
     }
 }

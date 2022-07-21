@@ -46,7 +46,7 @@ class ClientsController extends Controller
     public function store(clientRequest $request)
     {
         $data = $request->validated();
-        
+
         if(!isset($data['complement'])){
             $data['complement'] = 'empresa';
         }
@@ -59,11 +59,11 @@ class ClientsController extends Controller
         // if($response->failed()){
         //     return redirect()->back()->with('error', 'O CNPJ informado encontra-se desativado ou com restrições, entre em contato com o suporte para obter maiores informações');
         // }
-        
+
         if(Clients::where('cnpj', $data['cnpj'])->exists()){
             return redirect()->back()->with('error', 'O CNPJ já encontra-se cadastrado em nossa base, não é possível se cadastrar duas vezes com o mesmo CNPJ');
         }
-        
+
         if(User::where('email', $data['email'])->exists()){
             return redirect()->back()->with('error', 'Já existe um usuário cadastrado com este e-mail, não é possível se cadastrar novamente');
         }
@@ -90,7 +90,7 @@ class ClientsController extends Controller
             'status' => 1,
             'client_hash' => md5($data['cnpj']),
         ]);
-        
+
         $userId = json_decode(DB::table('users')->where('email', $data['email'])->select('id')->get())[0]->id;
 
         DB::table('userClients')->insert([
