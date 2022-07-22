@@ -48,7 +48,8 @@ class BillingController extends Controller
             'postback_url' => 'https://webhook.site/a65ea7d1-4b75-4a52-82d1-cc4f44cb308e'
         ]);
 
-        $paymentInfo = $response->body();
+        $data = $response->body();
+        $paymentInfo = json_decode($data);
 
         return view('billing.success', compact('paymentInfo'));
 

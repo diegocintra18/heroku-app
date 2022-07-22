@@ -1,21 +1,21 @@
 @include('layouts.site-header')
 @include('layouts.error')
 
-<div class="container">
+<div class="container mb-5">
     <div class="row">
         <div class="col-8">
             <div class="">
                 <div class="alert">
                     <h2>Pedido efetuado com sucesso!</h2>
                     <div class="mt-3">
-                        <strong class="mt-3">Nº do pedido: </strong><span>123</span><br>
+                        <strong class="mt-3">Nº do pedido: </strong><span>{{ $paymentInfo->id }}</span><br>
                     </div>
-                    <strong>Valor do pedido: </strong><span>R$ 49,90</span><br>
+                    <strong>Valor do pedido: </strong><span>R$ {{ number_format($paymentInfo->amount/100, 2, ',', '.') }}</span><br>
                     <strong>Status: </strong><span>Aguardando Pagamento</span><br>
                     <div class="mt-3 mb-3">
                         <strong><span>Chave do PIX Copia e Cola: <span></strong><br>
                             <div class="form-group">
-                                <textarea class="form-control" id="pixKey" rows="3">00020101021226990014br.gov.bcb.pix2577pix.bpp.com.br/23114447/qrs1/v2/01nrYOnZVEmM69ONbdfucZzVrlsl24ASW6Us6uXlLmVbg52040000530398654045.005802BR59102RPAY LTDA6009SAO PAULO62070503***6304067F</textarea>
+                                <textarea class="form-control" id="pixKey" rows="3">{{ $paymentInfo->pix->code }}</textarea>
                             </div>
                             <button class="btn btn-primary" onclick="copyToClipBoard()">Copiar chave PIX</button>
                     </div>
@@ -28,7 +28,7 @@
                     <center>
                         <h2>Pague com QRCode</h2>
                     </center>
-                    <img src="https://cdn.2rpay.com.br/qrcodes/2022/07/040a763362d2051a88248e3be24a1ff2d502dc92.png" alt="" class="img-fluid">
+                    <img src="{{ $paymentInfo->pix->qrcode }}" alt="" class="img-fluid">
                 </div>
             </div>
         </div>
@@ -36,19 +36,19 @@
 </div>
 
 <div class="modal"id="pixModal" tabindex="-1">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content">
-        <div class="modal-body p-3">
-            <center class="mt-3">
-                <span class="h3">Chave PIX copiada com sucesso!</span>
-                <div class="mt-3 mb-3">
-                    <button type="button" class="btn btn-success btn-large pr-3 pl-3" data-dismiss="modal">OK</button>
-                    <button type="button" class="btn btn-secondary btn-large pr-3 pl-3" data-dismiss="modal">Fechar</button>
-                </div>
-            </center>
-      </div>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body p-3">
+                <center class="mt-3">
+                    <span class="h3">Chave PIX copiada com sucesso!</span>
+                    <div class="mt-3 mb-3">
+                        <button type="button" class="btn btn-success btn-large pr-3 pl-3" data-dismiss="modal">OK</button>
+                        <button type="button" class="btn btn-secondary btn-large pr-3 pl-3" data-dismiss="modal">Fechar</button>
+                    </div>
+                </center>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
