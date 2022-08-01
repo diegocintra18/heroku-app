@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Billing;
 use App\Models\Clients;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -12,6 +13,7 @@ class BillingController extends Controller
     public function checkout($hash){
         if(Clients::where('client_hash', $hash)->exists()){
             $client = json_decode(Clients::where('client_hash', $hash)->get())[0];
+            $getBilling = Billing::where('client_id', $client->id)->get();
             return view('billing.checkout', compact('client'));
         }else{
             return redirect()->route('welcome');

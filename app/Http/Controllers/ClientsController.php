@@ -91,11 +91,22 @@ class ClientsController extends Controller
             'client_hash' => md5($data['cnpj']),
         ]);
 
+        $data['plan_value'] = 49.9;
+
         $userId = json_decode(DB::table('users')->where('email', $data['email'])->select('id')->get())[0]->id;
+        $clientId = json_decode($client->id);
 
         DB::table('userClients')->insert([
             'user_id' => $userId,
-            'client_id' => json_decode($client)->id
+            'client_id' => $clientId
+        ]);
+
+        DB::table('billing')->insert([
+            'amount' => $data['plan_value'],
+            'transaction_hash' => Hash::make($clientId . date('d/m/Y')),
+            'expiration_date' => date('Y-m-d', strtotime('+5 days')),
+            'status' => 0,
+            'client_id' => $clientId
         ]);
 
         return redirect('/checkout/'. json_decode($client)->client_hash);

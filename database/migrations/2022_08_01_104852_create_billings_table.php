@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->float('amount');
             $table->string('transaction_hash');
-            $table->timestamps('expiration_date');
-            $table->string('transaction_id');
+            $table->date('expiration_date');
+            $table->string('transaction_id')->default(0);
             $table->integer('status')->default(0);
-            $table->timestamps('payment_date');
+            $table->date('payment_date')->default('2000-01-01');
             $table->foreignId('client_id')->constrained('clients');
             $table->timestamps();
         });
