@@ -53,8 +53,6 @@ class BillingController extends Controller
 
         return view('billing.success', compact('paymentInfo'));
 
-        echo '<pre>', $response->body(), '</pre>';die;
-
         // retorno da callback
         // {
         //     "id": 249497,
