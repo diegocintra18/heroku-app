@@ -52,7 +52,7 @@
                 <div class="card-body bg-white p-3">
                     <h3 class="text-center">Resumo do pedido</h3>
                     <hr>
-                    <span class="">Assinatura básica: R$ 49,90</span>
+                    <span class="">Assinatura: R$ 49,90</span>
                     <br>
                     <span class="">Descontos: R$ 0,00</span>
                     <hr>
