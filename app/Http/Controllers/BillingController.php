@@ -29,13 +29,21 @@ class BillingController extends Controller
         $data = $request->all();
         $client = json_decode(Clients::where('client_hash', $data['client_hash'])->get())[0];
 
-        if(DB::table('billing')->where('client_id', $client->id)->where('transaction_id', '!=', null)->exists()){
-            echo "Existe transação";
+        if(DB::table('billing')->where('client_id', $client->id)->where('transaction_id', '>', 0)->exists()){
+            $transactionId = json_decode(DB::table('billing')->where('client_id', $client->id)->select('transaction_id')->get())[0]->transaction_id;
+
+            $response = Http::get('https://www.2rpay.com.br/api/v1/transaction/' . $transactionId, ['merchant_key' => 'ISdjHg3YRKx0VOqpREJGx6edtlAXOG3B']);
+
+            $data = $response->body();
+            $paymentInfo = json_decode($data);
+
+            return view('billing.success', compact('paymentInfo'));
         }else{
             $response = Http::post('https://www.2rpay.com.br/api/v1/transaction', [
                 'merchant_key' => 'ISdjHg3YRKx0VOqpREJGx6edtlAXOG3B',
                 'payment_method' => $data['payment_method'],
                 $data['payment_method'] => array(
+                    'bank' => 'bb',
                     'expiration_days' => 1
                 ),
                 'amount' => $data['plan_value'],
@@ -59,6 +67,8 @@ class BillingController extends Controller
 
             $data = $response->body();
             $paymentInfo = json_decode($data);
+
+            dd($data);
 
             DB::table('billing')->where('client_id', $client->id)->update([
                 'transaction_id' => $paymentInfo->id
